@@ -20,9 +20,13 @@ class Shop {
   }
 
   updateItemQuality(item) {
+    let degradeRate = -1;
+    if (item.name == 'Conjured Mana Cake'){
+      degradeRate = -2;
+    }
     if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
       if (item.name != 'Sulfuras, Hand of Ragnaros') {
-        this.adjustQuality(item, -1);
+        this.adjustQuality(item, degradeRate);
       }
     } else {
       this.adjustQuality(item, 1);
@@ -42,7 +46,7 @@ class Shop {
       if (item.name != 'Aged Brie') {
         if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
           if (item.name != 'Sulfuras, Hand of Ragnaros') {
-            this.adjustQuality(item, -1);
+            this.adjustQuality(item, degradeRate);
           }
         } else {
           this.adjustQuality(item, -item.quality);
@@ -55,8 +59,14 @@ class Shop {
 
   adjustQuality(item, adjustment) {
     let newQuality = item.quality + adjustment;
-    if (newQuality <= 50 && newQuality >= 0){
-      item.quality = newQuality
+    if (newQuality <= 0){
+      item.quality = 0;
+    }
+    else if (newQuality >= 50) {
+      item.quality = 50;
+    }
+    else{
+      item.quality = newQuality;
     }
   }
 

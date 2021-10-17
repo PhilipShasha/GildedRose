@@ -14,8 +14,7 @@ describe("Gilded Rose", function() {
       new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
       new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
       new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-      // this conjured item does not work properly yet
-      new Item("Conjured Mana Cake", 3, 6)
+      new Item("Conjured Mana Cake", 3, 13)
     ];
 
     let numDays = 31;
@@ -23,14 +22,14 @@ describe("Gilded Rose", function() {
     let output = "";
 
     for (let i = 0; i < numDays; i++) {
-      output += "-------- day " + i + " --------\n";
-      output += "name, sellIn, quality\n";
+      output += "-------- day " + i + " --------\r\n";
+      output += "name, sellIn, quality\r\n";
 
       for (let j = 0; j < items.length; j++) {
         let item = items[j];
-        output += item.name + ", " + item.sellIn + ", " + item.quality + "\n";
+        output += item.name + ", " + item.sellIn + ", " + item.quality + "\r\n";
       }
-      output += "\n";
+      output += "\r\n";
 
       gildedRose.updateQuality();
 
