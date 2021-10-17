@@ -53,16 +53,14 @@ class Shop {
       item.sellIn = item.sellIn - 1;
     }
     if (item.sellIn < 0) {
-      if (item.name != this.agedBrie) {
-        if (item.name != this.backstagePass) {
-          if (item.name != this.sulfuras) {
-            this.adjustQuality(item, degradeRate);
-          }
-        } else {
-          this.adjustQuality(item, -item.quality);
-        }
-      } else {
+      if (itemCanDegrade) {
+        this.adjustQuality(item, degradeRate);
+      }
+
+      if (item.name == this.agedBrie) {
         this.adjustQuality(item, 1);
+      } else if (item.name == this.backstagePass){
+        this.adjustQuality(item, -item.quality);
       }
     }
   }
