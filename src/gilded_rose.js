@@ -9,6 +9,10 @@ class Item {
 class Shop {
   constructor(items=[]){
     this.items = items;
+    this.agedBrie = 'Aged Brie';
+    this.backstagePass = 'Backstage passes to a TAFKAL80ETC concert';
+    this.sulfuras = 'Sulfuras, Hand of Ragnaros';
+    this.conjured = 'Conjured Mana Cake';
   }
 
   updateQuality(){
@@ -21,31 +25,37 @@ class Shop {
 
   updateItemQuality(item) {
     let degradeRate = -1;
-    if (item.name == 'Conjured Mana Cake'){
+    let itemCanDegrade = (item.name != this.agedBrie && item.name != this.backstagePass && item.name !=this.sulfuras);
+    
+    if (item.name == this.conjured){
       degradeRate = -2;
     }
-    if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-      if (item.name != 'Sulfuras, Hand of Ragnaros') {
-        this.adjustQuality(item, degradeRate);
-      }
-    } else {
+
+    if (itemCanDegrade) {
+      this.adjustQuality(item, degradeRate);
+    }
+
+
+    if (item.name == this.agedBrie || item.name == this.backstagePass) {
       this.adjustQuality(item, 1);
-      if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
-        if (item.sellIn < 11) {
-          this.adjustQuality(item, 1);
-        }
-        if (item.sellIn < 6) {
-          this.adjustQuality(item, 1);
-        }
+    }
+
+    if (item.name == this.backstagePass) {
+      if (item.sellIn < 11) {
+        this.adjustQuality(item, 1);
+      }
+      if (item.sellIn < 6) {
+        this.adjustQuality(item, 1);
       }
     }
-    if (item.name != 'Sulfuras, Hand of Ragnaros') {
+
+    if (item.name != this.sulfuras) {
       item.sellIn = item.sellIn - 1;
     }
     if (item.sellIn < 0) {
-      if (item.name != 'Aged Brie') {
-        if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-          if (item.name != 'Sulfuras, Hand of Ragnaros') {
+      if (item.name != this.agedBrie) {
+        if (item.name != this.backstagePass) {
+          if (item.name != this.sulfuras) {
             this.adjustQuality(item, degradeRate);
           }
         } else {
